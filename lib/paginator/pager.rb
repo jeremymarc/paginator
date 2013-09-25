@@ -3,7 +3,7 @@ module Paginator
         include Enumerable
 
         def initialize(collection, per_page = 2)
-            raise "Invalid per_page" unless per_page.integer? and per_page > 0
+            raise ArgumentError.new("Invalid per_page") unless per_page.integer? and per_page > 0
             @collection = collection
             @per_page = per_page.to_i
         end
@@ -22,7 +22,7 @@ module Paginator
 
         def page(number)
             if number < 0 || number > (@collection.length / @per_page).round
-                raise "Invalid page number"
+                raise ArgumentError.new("Invalid page number")
             end
 
             p = (number-1) * @per_page
